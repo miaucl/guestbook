@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Pages</h4>
+  <span class="text-muted ms-3">{{ i + 1 }}/{{ localStorageService?.data?.entries?.length }}</span>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <p *ngIf="!data" class="text-muted">Loading …</p>
+  <img *ngIf="data" [src]="data" class="w-100">
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-primary" [disabled]="i === 0" (click)="firstPage()">First</button>
+  <button type="button" class="btn btn-outline-primary" [disabled]="i === 0" (click)="previousPage()">Previous</button>
+  <button type="button" class="btn btn-outline-primary" [disabled]="i === (localStorageService.data?.entries?.length || 0) - 1" (click)="nextPage()">Next</button>
+  <button type="button" class="btn btn-outline-primary" [disabled]="i === (localStorageService.data?.entries?.length || 0) - 1" (click)="lastPage()">Last</button>
+</div>

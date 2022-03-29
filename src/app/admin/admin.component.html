@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h4 class="modal-title">Admin</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <div>
+    <button class="btn btn-danger btn-lg w-100" (click)="localStorageService.clear()">Clear Guestbook</button>
+  </div>
+</div>

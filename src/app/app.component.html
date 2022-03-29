@@ -1,0 +1,57 @@
+<div class="d-flex align-items-center bg-light">
+  <span class="px-2">Guestbook</span>
+  <span class="px-2 fst-italic">{{ localStorageService?.data?.name }}</span>
+  <button class="btn btn-link text-decoration-none btn-sm" [disabled]="localStorageService?.data?.entries?.length === 0" (click)="openPages()">View Pages ({{ localStorageService?.data?.entries?.length }})</button>
+  <span class="flex-grow-1"></span>
+  <button class="btn btn-link text-decoration-none" (click)="openAdmin()">⚙</button>
+</div>
+<p class="text-center text-muted mt-2 mb-1">Add a page to the guestbook</p>
+<div class="container-fluid mt-2 d-flex justify-content-center">
+  <div class="card overflow-hidden w-100">
+    <ng-whiteboard
+      style="height: calc(100vh - 160px)"
+      class="w-100"
+      [color]="color"
+      [size]="size + 'px'"
+      (save)="onSave($event)"
+    ></ng-whiteboard>
+    <div class="card-body border-top bg-light d-flex align-items-center">
+      <button class="btn btn-sm btn-outline-primary" (click)="openWebcam(webcam)">Add Photo</button>
+      <input type="color" class="form-control ms-2 p-0" [(ngModel)]="color" style="width: 4ch;">
+      <input type="range" class="ms-2 p-0" [(ngModel)]="size" style="width: 120px;" min="1" max="12" step="0.5" [title]="size + 'px'">
+      <button class="btn btn-sm btn-outline-secondary ms-2" (click)="whiteboardService.undo()">Undo</button>
+      <button class="btn btn-sm btn-outline-secondary ms-2" (click)="whiteboardService.redo()">Redo</button>
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="whiteboardService.erase()">Clear</button>
+      <span class="flex-grow-1"></span>
+      <button class="btn btn-primary" (click)="whiteboardService.save(FormatType.Base64)">Post</button>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #webcam let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Photo!</h4>
+    <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  ></button>
+  </div>
+  <div class="modal-body d-flex justify-content-center p-0">
+    <webcam
+      [width]="400"
+      [height]="400"
+      [trigger]="trigger"
+      (imageCapture)="handleImage($event)"
+      [allowCameraSwitch]="true"
+      [imageQuality]="1"
+    ></webcam>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" (click)="smile.next()">Smile!</button>
+    <button class="btn btn-primary ms-2" (click)="smileDelayed.next()">Smile! (3s)</button>
+</div>
+</ng-template>
+
